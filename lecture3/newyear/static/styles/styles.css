@@ -1,0 +1,10 @@
+div {
+    width: 300px;
+    height: 150px;
+    color: white;
+    background-color: #333;
+    margin: auto;
+    text-align: center;
+    align-content: center;
+    border-radius: 10px;
+}
