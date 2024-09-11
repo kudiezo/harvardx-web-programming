@@ -20,7 +20,7 @@ def flight(require, flight_id):
 
 def book(require, flight_id):
     if require.method == 'POST':
-        flight = Flight.objects.get(pk=flight_id)
+        flight = Flight.objects .get(pk=flight_id)
         passenger = Passenger.objects.get(pk=int(require.POST['passenger']))
         passenger.flight.add(flight)
         

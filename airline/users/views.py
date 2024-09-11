@@ -10,7 +10,7 @@ def index(require):
         })
         
     return render(require, "users/index.html", {
-        
+        "require": require
     })
     
         

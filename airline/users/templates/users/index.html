@@ -2,7 +2,7 @@
 
 {% block body %}
     <ul>
-        <li>First name: {{ require.user.first_name}}</li>
+        <li>First name: {{ require.user.username }}</li>
     </ul>
     <a href="{% url 'logout' %}">Logout</a>
 {% endblock %}
