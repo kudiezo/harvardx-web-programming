@@ -2,31 +2,30 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import *
+from .models import Flight, Passenger
 
-def index(require):
-    return render(require, "flights/index.html", {
-        "flights": Flight.objects.all()
+def index(request):
+    flights = Flight.objects.all()
+
+    return render(request, "flights/index.html", {
+        "flights": flights
     })
 
-def flight(require, flight_id):
+def flight(request, flight_id):
     flight = Flight.objects.get(pk=flight_id)
-    
-    return render(require, "flights/flight.html", {
+
+    return render(request, "flights/flight.html", {
         "flight": flight,
         "passengers": flight.passengers.all(),
-        "no_passengers": Passenger.objects.exclude(flight=flight)
+        "no_passengers": Passenger.objects.exclude(flights=flight),
     })
 
-def book(require, flight_id):
-    if require.method == 'POST':
-        flight = Flight.objects .get(pk=flight_id)
-        passenger = Passenger.objects.get(pk=int(require.POST['passenger']))
-        passenger.flight.add(flight)
-        
-        return HttpResponseRedirect(reverse("flight", args={flight_id,}))
-    
-    return HttpResponseRedirect(reverse("flight", args={flight_id,}))
-        
-    
-    
+def book(request, flight_id):
+    flight = Flight.objects.get(pk=flight_id)
+
+    if request.method == "POST":
+        passenger = Passenger.objects.get(pk=request.POST["passenger"])
+        passenger.flights.add(flight)
+        pass
+
+    return HttpResponseRedirect(reverse("flight", args=[flight_id]))
