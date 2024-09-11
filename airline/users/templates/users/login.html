@@ -2,7 +2,7 @@
 
 {% block body %}
     {{ message }}
-    <form action="{% url 'login' %}" method="post">
+    <form action="{% url 'users:login' %}" method="post">
         {% csrf_token %}
         <input type="text" name="username" id="">
         <input type="password" name="password" id="">
